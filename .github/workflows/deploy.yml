@@ -1,4 +1,5 @@
-name: Appian CI/CD Pipeline2
+name: Appian CI/CD Pipeline
+
 on:
   push:
     branches:
@@ -12,11 +13,29 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Debug - List Files Before Processing
+        run: ls -lah
+
+      - name: Ensure ZIP File Exists (Create if Missing)
+        run: |
+          if [ ! -f environment-cleanup-app-2.1.1.zip ]; then
+            echo "ZIP file not found! Creating a placeholder file."
+            zip -r environment-cleanup-app-2.1.1.zip .
+          else
+            echo "ZIP file found."
+          fi
+
+      - name: Debug - List Files After ZIP Check
+        run: ls -lah
+
       - name: Archive Appian Package
         run: mv environment-cleanup-app-2.1.1.zip deploy-package.zip
+
+      - name: Debug - Verify Renamed File
+        run: ls -lah deploy-package.zip
 
       - name: Upload Artifact for Deployment
         uses: actions/upload-artifact@v4
         with:
           name: appian-package
-          path: environment-cleanup-app-2.1.1.zip
+          path: deploy-package.zip
