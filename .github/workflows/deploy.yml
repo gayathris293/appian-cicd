@@ -14,10 +14,10 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Archive Appian Package
-        run: mv appian-package.zip deploy-package.zip
+        run: mv environment-cleanup-app-2.1.1.zip deploy-package.zip
 
       - name: Upload Artifact for Deployment
         uses: actions/upload-artifact@v3
         with:
           name: appian-package
-          path: appian-package.zip
+          path: environment-cleanup-app-2.1.1.zip
