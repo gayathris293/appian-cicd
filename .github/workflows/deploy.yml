@@ -1,5 +1,4 @@
-name: Appian CI/CD Pipeline
-
+name: Appian CI/CD Pipeline2
 on:
   push:
     branches:
