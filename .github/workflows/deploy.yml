@@ -1,0 +1,23 @@
+name: Appian CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Archive Appian Package
+        run: mv appian-package.zip deploy-package.zip
+
+      - name: Upload Artifact for Deployment
+        uses: actions/upload-artifact@v3
+        with:
+          name: appian-package
+          path: appian-package.zip
